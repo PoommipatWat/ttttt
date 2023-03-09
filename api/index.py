@@ -34,15 +34,11 @@ def signupForm():
     use = request.form['in_text']
     return render_template('signup.html', use = use)
 
-@app.route('/publish', methods=['GET', 'POST'])
 def publish():
     use = request.form['in_text']
     use = int(use)
     if(use >=0 and use <= 450):
         mqtt.publish('hello_poommipat/command', use)
-        return render_template('success.html')
-    else:
-        return render_template('error.html')
 
 @app.route('/data')
 def get_data():
