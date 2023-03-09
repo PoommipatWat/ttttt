@@ -1,11 +1,83 @@
-{% extends "layout.html" %}
-{% block content%}
-<div class="container" style="text-align:center;">
-    <div class="row justify-content-end">
-        <h1></h1>
-        <h1></h1>
-        <h1></h1>
-        <h1>สำหรับใส่รายละเอียดสมาชิก</h1>
-    </div>
-</div>
-{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>G7</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">G7</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-link" href="{{url_for('home')}}">Control</a>
+              <a class="nav-link" href="{{url_for('chart')}}">Chart</a>
+              <a class="nav-link" href="{{url_for('about')}}">Information</a>
+              <a class="nav-link active" aria-current="page" href="{{url_for('member')}}">Member</a>
+            </div>
+          </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container" style="text-align:center;">
+            <div class="row justify-content-end">
+                <h1></h1>
+                <h1></h1>
+                <h1></h1>
+                <h1>รายชื่อสมาชิก</h1>
+                <table class="table">
+                    <thead class="table-dark">
+                      <tr>
+                        <th scope="col">คนที่</th>
+                        <th scope="col">ชื่อจริง</th>
+                        <th scope="col">นามสกุล</th>
+                        <th scope="col">ชื่อเล่น</th>
+                        <th scope="col">รหัสนักศึกษา</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">1</th>
+                        <td>นางสาวธัญชภัสส์</td>
+                        <td>จันทร์นิมิ</td>
+                        <td>ข้าวหอม</td>
+                        <td>600610741</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">2</th>
+                        <td>นายภูมิพัฒน์</td>
+                        <td>วัฒนประสิทธิ์</td>
+                        <td>ภูมิ</td>
+                        <td>640610682</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">3</th>
+                        <td>นายวริศ</td>
+                        <td>โอภาส</td>
+                        <td>พีค</td>
+                        <td>640610684</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">4</th>
+                        <td>นายเศรษฐานุวัฒน์</td>
+                        <td>ติ๊บมา</td>
+                        <td>นิค</td>
+                        <td>640610687</td>
+                      </tr>
+                    </tbody>
+                  </table>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
+
+
