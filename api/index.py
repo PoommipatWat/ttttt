@@ -1,5 +1,6 @@
 from flask import Flask,render_template,request, redirect, url_for, jsonify
 from flask_mqtt import Mqtt
+import varn
 
 app = Flask(__name__)
 
@@ -61,7 +62,7 @@ def handle_connect(client, userdata, flags, rc):
 
 @mqtt.on_message()
 def handle_message(client, userdata, message):
-    print(message.payload.decode())
+    varn.g = (message.payload.decode())
 
 if __name__=="__main__":
     app.run(debug=True)
