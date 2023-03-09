@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+{% block content%}
+<div class="container">
+    <form method="post" action="{{ url_for('publish') }}">
+        <div class="row justify-content-end">
+            <h1></h1>
+            <h1></h1>
+            <h1></h1>
+            <div class="form-group">
+                <div class="input-group mb-3">
+                    <input name = "in_text" type="number" style="text-align:center;" id ="immm" class="form-control" placeholder="SetPoint in millimater" aria-label="SetPoint in millimater" aria-describedby="basic-addon1">
+                </div>
+            </div>    
+            <h1></h1>
+            <h1></h1>
+            <button type="submit" class="btn btn-dark">Publish Number</button>
+        </div>
+    </form>
+    <form method="post" action="{{ url_for('publish') }}">
+        <div class="row justify-content-end">    
+            <h1></h1>
+            <h1></h1>
+            <h1></h1>
+            <h1></h1>
+            <h1></h1>
+            <h1></h1>
+            <h1 style="text-align:center;">Setpoint: <span id="slider_value">225</span> millimater</h1>
+            <input name = "in_text" type="range" class="form-range" min="0" max="450" step="1" id="customRange3" onchange="updateSliderValue()">
+            <script>
+                function updateSliderValue() {
+                    var slider = document.getElementById("customRange3");
+                    var sliderValue = document.getElementById("slider_value");
+                    sliderValue.innerHTML = slider.value;
+                }
+            </script>
+            <h1></h1>
+            <h1></h1>
+            <button type="submit" class="btn btn-dark">Publish Slider Bar</button>
+        </div>
+    </form>        
+</div>
+
+
+{% endblock %}
+
+
