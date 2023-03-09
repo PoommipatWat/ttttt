@@ -1,5 +1,9 @@
 from flask import Flask,render_template,request, redirect, url_for, jsonify
 from flask_mqtt import Mqtt
+from configparser import ConfigParser
+
+config = ConfigParser()
+
 
 
 app = Flask(__name__)
@@ -35,11 +39,6 @@ def signupForm():
     use = request.form['in_text']
     return render_template('signup.html', use = use)
 
-@mqtt.on_message()
-def handle_message(client, userdata, message):
-    # Do something with the MQTT message
-    print(message.payload.decode())
-
 @app.route('/publish', methods=['GET', 'POST'])
 def publish():
     use = request.form['in_text']
@@ -52,7 +51,9 @@ def publish():
 
 @app.route('/data')
 def get_data():
-    data = [1,1,1,1,1]
+    config.read("Config.ini")
+    dat = config.get("setting", "val1")
+    data = [dat,dat,dat,dat]
     return jsonify(data)
 
 
@@ -62,7 +63,13 @@ def handle_connect(client, userdata, flags, rc):
 
 @mqtt.on_message()
 def handle_message(client, userdata, message):
-    print(message.payload.decode())
+    a = (message.payload.decode())
+    config["setting"] = {
+        "val1" : int(a),
+        "val2" : ""
+    }
+    with open("Config.ini", "w") as f:
+        config.write(f)
 
 if __name__=="__main__":
     app.run(debug=True)
