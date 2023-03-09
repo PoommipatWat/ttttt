@@ -55,10 +55,13 @@ def get_data():
     return jsonify(data)
 
 
-# @mqtt.on_connect()
-# def subscribe(client, userdata, flags, rc):
-#     mqtt.subscribe('mytopic')
-#     mqtt.subscribe('another/topic')
+@mqtt.on_connect()
+def handle_connect(client, userdata, flags, rc):
+    mqtt.subscribe('hello_poommipat/#')
+
+@mqtt.on_message()
+def handle_message(client, userdata, message):
+    print(message.payload.decode())
 
 if __name__=="__main__":
     app.run(debug=True)
