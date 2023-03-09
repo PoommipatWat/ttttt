@@ -66,6 +66,52 @@
                 </div>
             </form>        
         </div>
+        <script>      
+            var ctx = document.getElementById('myChart').getContext('2d');
+            var chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                label: 'Setpoint',
+                data: [],
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                xAxes: [{
+                    ticks: {
+                        maxTicksLimit: 20
+                    }   
+                }],
+                yAxes: [{
+                    ticks: {
+                    beginAtZero: true
+                    }
+                }]
+                }
+            }
+            });
+    
+            function updateChart() {
+            fetch('/data')
+                .then(response => response.json())
+                .then(data => {
+                if(chart.data.labels.length > 100) {
+                    chart.data.labels.shift();
+                    chart.data.datasets[0].data.shift();
+                }
+                chart.data.labels.push(new Date().toLocaleTimeString());
+                chart.data.datasets[0].data.push(data[0]);
+                chart.update();
+                });
+            }
+    
+        setInterval(updateChart, 100);
+      </script>
         
     </main>
 </body>

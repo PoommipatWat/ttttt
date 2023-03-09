@@ -13,9 +13,6 @@ app.config['MQTT_TLS_ENABLED'] = False
 
 mqtt = Mqtt(app)
 
-
-
-
 @app.route('/')
 def home():
     return render_template('index.html')
