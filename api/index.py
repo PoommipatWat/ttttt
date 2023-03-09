@@ -1,5 +1,6 @@
 from flask import Flask,render_template,request, redirect, url_for, jsonify
 from flask_mqtt import Mqtt
+import templates.trace as tt
 
 app = Flask(__name__)
 
@@ -11,6 +12,8 @@ app.config['MQTT_KEEPALIVE'] = 3600
 app.config['MQTT_TLS_ENABLED'] = False
 
 mqtt = Mqtt(app)
+
+
 
 
 @app.route('/')
@@ -34,11 +37,6 @@ def signupForm():
     use = request.form['in_text']
     return render_template('signup.html', use = use)
 
-@mqtt.on_message()
-def handle_message(client, userdata, message):
-    # Do something with the MQTT message
-    print(message.payload.decode())
-
 @app.route('/publish', methods=['GET', 'POST'])
 def publish():
     use = request.form['in_text']
@@ -51,7 +49,7 @@ def publish():
 
 @app.route('/data')
 def get_data():
-    data = [1,1,1,1,1]
+    data = [tt.g]
     return jsonify(data)
 
 
@@ -61,7 +59,8 @@ def handle_connect(client, userdata, flags, rc):
 
 @mqtt.on_message()
 def handle_message(client, userdata, message):
-    print(message.payload.decode())
+    dat = (message.payload.decode())
+    tt.g = dat
 
 if __name__=="__main__":
-    app.run(debug=True)
+    app.run(debug=True, port=8000)
