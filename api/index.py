@@ -49,10 +49,11 @@ def publish():
     else:
         return render_template('error.html')
 
-@app.route('/data')
+@app.route('/data', methods=['GET', 'POST'])
 def get_data():
     config.read("Config.ini")
     dat = config.get("setting", "val1")
+    print(dat)
     data = [dat,dat,dat,dat]
     return jsonify(data)
 
@@ -72,4 +73,4 @@ def handle_message(client, userdata, message):
         config.write(f)
 
 if __name__=="__main__":
-    app.run(debug=True)
+    app.run(debug=True, port=8000)
