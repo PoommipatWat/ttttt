@@ -24,6 +24,7 @@
           </div>
         </div>
     </nav>
+
     <canvas id="myChart"></canvas>
 
     <script>      
@@ -31,14 +32,20 @@
         var chart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: [],
-            datasets: [{
+        labels: [],
+        datasets: [{
             label: 'Setpoint',
             data: [],
             backgroundColor: 'rgba(255, 99, 132, 0.2)',
             borderColor: 'rgba(255, 99, 132, 1)',
             borderWidth: 1
-            }]
+        }, {
+            label: 'Input',
+            data: [],
+            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+            borderColor: 'rgba(54, 162, 235, 1)',
+            borderWidth: 1
+        }]
         },
         options: {
             scales: {
@@ -57,18 +64,20 @@
         });
 
         function updateChart() {
-        fetch('/data')
-            .then(response => response.json())
-            .then(data => {
-            if(chart.data.labels.length > 100) {
+    fetch('/data')
+        .then(response => response.json())
+        .then(data => {
+            if (chart.data.labels.length > 100) {
                 chart.data.labels.shift();
                 chart.data.datasets[0].data.shift();
+                chart.data.datasets[1].data.shift(); // shift data from new line as well
             }
             chart.data.labels.push(new Date().toLocaleTimeString());
             chart.data.datasets[0].data.push(data[0]);
+            chart.data.datasets[1].data.push(data[1]); // add data to new line
             chart.update();
-            });
-        }
+        });
+}
 
     setInterval(updateChart, 100);
   </script>
