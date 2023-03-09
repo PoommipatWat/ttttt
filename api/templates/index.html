@@ -28,50 +28,70 @@
     <canvas id="myChart"></canvas>
 
     <script>      
-        var ctx = document.getElementById('myChart').getContext('2d');
-        var chart = new Chart(ctx, {
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var chart = new Chart(ctx, {
         type: 'line',
         data: {
             labels: [],
             datasets: [{
-            label: 'Setpoint',
-            data: [],
-            backgroundColor: 'rgba(255, 99, 132, 0.2)',
-            borderColor: 'rgba(255, 99, 132, 1)',
-            borderWidth: 1
+                label: 'Setpoint',
+                data: [],
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 1
+            }, {
+                label: 'Input',
+                data: [],
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }, {
+                label: 'Output',
+                data: [],
+                backgroundColor: 'rgba(255, 206, 86, 0.2)',
+                borderColor: 'rgba(255, 206, 86, 1)',
+                borderWidth: 1
             }]
         },
         options: {
             scales: {
-            xAxes: [{
-                ticks: {
-                    maxTicksLimit: 20
-                }   
-            }],
-            yAxes: [{
-                ticks: {
-                beginAtZero: true
-                }
-            }]
+                xAxes: [{
+                    ticks: {
+                        maxTicksLimit: 20
+                    }
+                }],
+                yAxes: [{
+                    ticks: {
+                    scaleOverride : true,
+                    scaleSteps : 10,
+                    scaleStepWidth : 500,
+                    scaleStartValue : 0 
+                    }
+                }]
             }
         }
-        });
+    });
 
-        function updateChart() {
+    function updateChart() {
         fetch('/data')
             .then(response => response.json())
             .then(data => {
-            if(chart.data.labels.length > 100) {
-                chart.data.labels.shift();
-                chart.data.datasets[0].data.shift();
-            }
-            chart.data.labels.push(new Date().toLocaleTimeString());
-            chart.data.datasets[0].data.push(data[0]);
-            chart.update();
+                if (chart.data.labels.length > 100) {
+                    chart.data.labels.shift();
+                    chart.data.datasets[0].data.shift();
+                    chart.data.datasets[1].data.shift();
+                    chart.data.datasets[2].data.shift();
+                }
+                chart.data.labels.push(new Date().toLocaleTimeString());
+                chart.data.datasets[0].data.push(data[0]);
+                chart.data.datasets[1].data.push(data[1]);
+                chart.data.datasets[2].data.push(data[2]);
+                chart.update();
             });
-        }
+    }
 
     setInterval(updateChart, 100);
+
   </script>
     <main>
         <div class="container">

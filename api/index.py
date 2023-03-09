@@ -49,7 +49,7 @@ def publish():
 
 @app.route('/data')
 def get_data():
-    data = [tt.g,1]
+    data = [tt.g,100,200]
     return jsonify(data)
 
 
