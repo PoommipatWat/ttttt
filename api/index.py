@@ -1,6 +1,6 @@
 from flask import Flask,render_template,request, redirect, url_for, jsonify
 from flask_mqtt import Mqtt
-import templates.trace as tt
+import trace as tt
 
 app = Flask(__name__)
 
