@@ -13,6 +13,8 @@ app.config['MQTT_TLS_ENABLED'] = False
 
 mqtt = Mqtt(app)
 
+mqtt2 = Mqtt(app)
+
 
 
 
@@ -30,7 +32,7 @@ def member():
 
 @app.route('/chart')
 def chart():
-    return render_template('chart.html')
+    return render_template('chart2.html')
 
 @app.route('/sentdata', methods=['GET', 'POST'])
 def signupForm():
@@ -42,25 +44,30 @@ def publish():
     use = request.form['in_text']
     use = int(use)
     if(use >=0 and use <= 450):
-        mqtt.publish('hello_poommipat/command', use)
+        mqtt.publish(f'{tt.topic_name1}/command', use)
         return render_template('success.html')
     else:
         return render_template('error.html')
 
 @app.route('/data')
 def get_data():
-    data = [tt.g,100,200]
+    data = [tt.g,tt.gg,tt.ggg]
+    print(data)
     return jsonify(data)
 
 
 @mqtt.on_connect()
 def handle_connect(client, userdata, flags, rc):
-    mqtt.subscribe('hello_poommipat/#')
+    mqtt.subscribe(f'{tt.topic_name2}/#')
 
 @mqtt.on_message()
 def handle_message(client, userdata, message):
     dat = (message.payload.decode())
-    tt.g = dat
+    dat = str(dat)
+    dat = dat.split()
+    tt.g = int(dat[0])
+    tt.gg = int(dat[1])
+    tt.ggg = int(dat[2])
 
 if __name__=="__main__":
     app.run(debug=True, port=8000)
