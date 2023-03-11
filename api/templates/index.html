@@ -232,14 +232,6 @@
                 chart.data.datasets[3].data.shift();
                 chart.data.datasets[4].data.shift();
             }
-            while(chart.data.labels.length < 100){
-                chart.data.labels.push("");
-                chart.data.datasets[0].data.push(0);
-                chart.data.datasets[1].data.push(0);
-                chart.data.datasets[2].data.push(0);
-                chart.data.datasets[3].data.push(0);
-                chart.data.datasets[4].data.push(0);
-            }
             chart.data.labels.push(new Date().toLocaleTimeString());
             chart.data.datasets[0].data.push(data[0]);
             chart.data.datasets[1].data.push(data[1]);
